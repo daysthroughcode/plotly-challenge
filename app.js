@@ -67,7 +67,7 @@ function renderPlots(sampleID) {
                 text: labels,
                 mode: "markers",
                 marker: {
-                    colorscale: "Blackbody",
+                    colorscale: "Bluered",
                     color: xValue,
                     size: yValue,
                 }
