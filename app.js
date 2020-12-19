@@ -1,4 +1,4 @@
-// DEMOGRAPHIC INFO 
+// Unpack JSON and Populate initial arrays
 
 function unpackJSON(sampleID) {
     d3.json("samples.json").then((data) => {
@@ -56,11 +56,11 @@ function renderPlots(sampleID) {
         Plotly.newPlot("bar", dataBar, barLayout);
 
         // Render Bubble Chart
-        let LayoutBubble = {
+        let bubbleLayout = {
             xaxis: { title: "ID (Operational Taxonomic Unit) " },
         };
 
-        let DataBubble = [
+        let dataBubble = [
             {
                 x: xValue,
                 y: yValue,
@@ -73,7 +73,7 @@ function renderPlots(sampleID) {
                 }
             }];
 
-        Plotly.plot("bubble", DataBubble, LayoutBubble);
+        Plotly.plot("bubble", dataBubble, bubbleLayout);
 
     });
 }
