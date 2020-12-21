@@ -41,6 +41,7 @@ function renderPlots(sampleID) {
 
         //**Bonus** Render Gauge Chart
         // Set Level for Wash Frequency
+        //Only need 7 divisions but 9 is neater
         let level = (metaArray[0].wfreq * 20) - 10;
 
         // Calculate meter point
@@ -69,6 +70,7 @@ function renderPlots(sampleID) {
             hoverinfo: 'text+name'
         },
         {
+            //9 divisions because its better than dealing with decimals
             values: [50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50],
             rotation: 90,
             text: ['9', '8', '7', '6', '5', '4',
