@@ -4,6 +4,7 @@ function renderMetadata(sampleID) {
     d3.json("samples.json").then((data) => {
         console.log(data)
         const metadata = data.metadata;
+        console.log(metadata)
         let resultsarray = metadata.filter(sampleobject => sampleobject.id == sampleID);
         let result = resultsarray[0]
         const dataPanel = d3.select("#sample-metadata");
@@ -69,12 +70,18 @@ function renderPlots(sampleID) {
             textinfo: 'text',
             textposition: 'inside',
             marker: {
-                colors: ['rgba(14, 127, 0, .5)', 'rgba(110, 154, 22, .5)',
-                    'rgba(170, 202, 42, .5)', 'rgba(202, 209, 95, .5)',
-                    'rgba(210, 206, 145, .5)', 'rgba(232, 226, 202, .5)', 'rgba(232, 226, 202, .5)', 'rgba(232, 226, 202, .5)', 'rgba(232, 226, 202, .5)',
-                    'rgba(255, 255, 255, 0)']
+                colors: ['#35743D',
+                    '#378241',
+                    '#399144',
+                    '#399A46',
+                    '#A7B93A',
+                    '#B6A83A',
+                    '#B27B3A',
+                    '#AF593A',
+                    '#AC3A3D',
+                    'white']
             },
-            labels: ['9', '8', '7', '6', '5', '4', '3', '2', '1', ''],
+            labels: ['', '9', '8', '7', '6', '5', '4', '3', '2', '1', '0'],
             hoverinfo: 'label',
             hole: .5,
             type: 'pie',
@@ -91,8 +98,8 @@ function renderPlots(sampleID) {
                 }
             }],
             title: 'Scrubs by Frequency [Weekly]',
-            height: 1000,
-            width: 1000,
+            height: 700,
+            width: 700,
             xaxis: {
                 zeroline: false, showticklabels: false,
                 showgrid: false, range: [-1, 1]
