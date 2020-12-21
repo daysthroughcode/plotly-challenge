@@ -1,4 +1,5 @@
-// Unpack JSON and Pop
+//Metadata
+// Unpack JSON and Pop into table
 
 function renderMetadata(sampleID) {
     d3.json("samples.json").then((data) => {
@@ -19,10 +20,9 @@ function renderMetadata(sampleID) {
 }
 
 // CHARTS
-
 function renderPlots(sampleID) {
 
-    // Use `d3.json` to fetch the sample data for the plots
+    //Unpack json
     d3.json("samples.json").then((data) => {
         //For bar and Bubble
         const samples = data.samples;
@@ -184,7 +184,7 @@ function init() {
 }
 
 function changeID(newID) {
-    // Fetch new data each time a new sample is selected
+    // Fetch new data by sample
     renderPlots(newID);
     renderMetadata(newID);
 }
