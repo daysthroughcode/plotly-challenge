@@ -87,7 +87,7 @@ function renderPlots(sampleID) {
                     '#AC3A3D',
                     '#FFFFFF']
             },
-            labels: ['', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
+            labels: ['', '9', '8', '7', '6', '5', '4', '3', '2', '1', '0'],
             hoverinfo: 'label',
             hole: .5,
             type: 'pie',
