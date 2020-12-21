@@ -85,7 +85,7 @@ function renderPlots(sampleID) {
                     '#B27B3A',
                     '#AF593A',
                     '#AC3A3D',
-                    'white']
+                    '#FFFFFF']
             },
             labels: ['', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
             hoverinfo: 'label',
@@ -117,10 +117,6 @@ function renderPlots(sampleID) {
         };
 
         Plotly.newPlot('gauge', gaugeData, gaugeLayout);
-
-
-
-
 
         // Render Horizontal Bar Charts
         let dataBar = [{
