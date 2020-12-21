@@ -5,8 +5,8 @@ function renderMetadata(sampleID) {
         console.log(data)
         const metadata = data.metadata;
         console.log(metadata)
-        let resultsarray = metadata.filter(sampleobject => sampleobject.id == sampleID);
-        let result = resultsarray[0]
+        let resultsArray = metadata.filter(sampleobject => sampleobject.id == sampleID);
+        let result = resultsArray[0]
         const dataPanel = d3.select("#sample-metadata");
 
         //clear existing data
@@ -24,28 +24,33 @@ function renderPlots(sampleID) {
 
     // Use `d3.json` to fetch the sample data for the plots
     d3.json("samples.json").then((data) => {
+        //For bar and Bubble
         const samples = data.samples;
-        const metadata = data.metadata;
         let resultsarray = samples.filter(sampleobject => sampleobject.id == sampleID);
         let result = resultsarray[0]
+
         //set chart variables & lablel values
         let xValue = result.otu_ids;
         let labels = result.otu_labels;
         let yValue = result.sample_values;
         console.log(result)
 
-        //Render Gauge Chart
-        // Set Level for Wash Frequency
-        let level = (metadata[0].wfreq * 20) - 10;
+        //For Gauge
+        const metadata = data.metadata;
+        let metaArray = metadata.filter(sampleobject => sampleobject.id == sampleID);
 
-        // Calculate Meter Point
+        //**Bonus** Render Gauge Chart
+        // Set Level for Wash Frequency
+        let level = (metaArray[0].wfreq * 20) - 10;
+
+        // Calculate meter point
         let degrees = 180 - level,
             radius = .5;
         let radians = degrees * Math.PI / 180;
         let x = radius * Math.cos(radians);
         let y = radius * Math.sin(radians);
 
-        // Path: may have to change to create a better triangle
+        // Render Pointer
         let mainPath = 'M -.0 -0.025 L .0 0.025 L ',
             pathX = String(x),
             space = ' ',
@@ -53,20 +58,21 @@ function renderPlots(sampleID) {
             pathEnd = ' Z';
         let path = mainPath.concat(pathX, space, pathY, pathEnd);
 
+        //Render Gauge
         let gaugeData = [{
             type: 'scatter',
             x: [0], y: [0],
             marker: { size: 28, color: '850000' },
             showlegend: false,
-            name: 'Wash Frequency',
-            text: level,
+            name: 'Grot-o-meter',
+            text: (level + 10) / 20,
             hoverinfo: 'text+name'
         },
         {
             values: [50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50 / 9, 50],
             rotation: 90,
             text: ['9', '8', '7', '6', '5', '4',
-                '3', '2', '1', ''],
+                '3', '2', '1'],
             textinfo: 'text',
             textposition: 'inside',
             marker: {
@@ -81,14 +87,14 @@ function renderPlots(sampleID) {
                     '#AC3A3D',
                     'white']
             },
-            labels: ['', '9', '8', '7', '6', '5', '4', '3', '2', '1', '0'],
+            labels: ['', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
             hoverinfo: 'label',
             hole: .5,
             type: 'pie',
             showlegend: false
         }];
 
-        let gaugeLayout = {
+        const gaugeLayout = {
             shapes: [{
                 type: 'path',
                 path: path,
@@ -98,8 +104,8 @@ function renderPlots(sampleID) {
                 }
             }],
             title: 'Scrubs by Frequency [Weekly]',
-            height: 700,
-            width: 700,
+            height: 600,
+            width: 600,
             xaxis: {
                 zeroline: false, showticklabels: false,
                 showgrid: false, range: [-1, 1]
