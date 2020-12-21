@@ -1,6 +1,6 @@
-// Unpack JSON and Populate initial arrays
+// Unpack JSON and Pop
 
-function unpackJSON(sampleID) {
+function renderMetadata(sampleID) {
     d3.json("samples.json").then((data) => {
         console.log(data)
         const metadata = data.metadata;
@@ -26,14 +26,11 @@ function renderPlots(sampleID) {
         const samples = data.samples;
         let resultsarray = samples.filter(sampleobject => sampleobject.id == sampleID);
         let result = resultsarray[0]
-
-        //set chart axis & lablel values
+        //set chart variables & lablel values
         let xValue = result.otu_ids;
-        console.log(xValue)
         let labels = result.otu_labels;
-        console.log(labels)
         let yValue = result.sample_values;
-        console.log(yValue)
+        console.log(result)
 
         // Render Horizontal Bar Charts
         let dataBar = [{
@@ -58,6 +55,7 @@ function renderPlots(sampleID) {
         // Render Bubble Chart
         let bubbleLayout = {
             xaxis: { title: "ID (Operational Taxonomic Unit) " },
+            yaxis: { title: "Number of Colonies" }
         };
 
         let dataBubble = [
@@ -73,7 +71,7 @@ function renderPlots(sampleID) {
                 }
             }];
 
-        Plotly.plot("bubble", dataBubble, bubbleLayout);
+        Plotly.newPlot("bubble", dataBubble, bubbleLayout);
 
     });
 }
@@ -95,14 +93,14 @@ function init() {
         //Set initial sample to render
         const firstSample = sampleNames[0];
         renderPlots(firstSample);
-        unpackJSON(firstSample);
+        renderMetadata(firstSample);
     });
 }
 
-function optionChanged(newID) {
+function changeID(newID) {
     // Fetch new data each time a new sample is selected
     renderPlots(newID);
-    unpackJSON(newID);
+    renderMetadata(newID);
 }
 
 init();
